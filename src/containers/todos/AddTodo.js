@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, StatusBar } from 'react-native';
 import {
   Container,
@@ -11,20 +11,31 @@ import {
   Icon,
 } from 'native-base';
 import { useDispatch } from 'react-redux';
-import { todoAdded } from '../../store/reducers/todosSlice';
+import { todoAdded, todoUpdated } from '../../store/reducers/todosSlice';
 
-export default function AddTodo({ navigation }) {
+export default function AddTodo({ route, navigation }) {
+  const isEdit = route.params?.item ? true : false;
+  const todoId = route.params?.item.id;
   const dispatch = useDispatch();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(isEdit ? route.params.item.title : '');
+  useEffect(() => {
+    if (isEdit) {
+      navigation.setOptions({ title: 'Edit todo' });
+    }
+  }, [isEdit]);
 
   const onTitleChanged = (text) => {
     setTitle(text);
   };
   const onSave = () => {
     if (title) {
-      dispatch(todoAdded(title));
-      setTitle('');
-      navigation.navigate('Todos');
+      if (isEdit) {
+        dispatch(todoUpdated(title, todoId));
+        navigation.navigate('Todos');
+      } else {
+        dispatch(todoAdded(title));
+        navigation.navigate('Todos');
+      }
     }
   };
   return (
@@ -40,12 +51,18 @@ export default function AddTodo({ navigation }) {
               value={title}
               onChangeText={onTitleChanged}
               placeholder='Next todo...'
+              autoFocus
             />
           </Item>
+          <Button
+            style={styles.button}
+            block
+            onPress={onSave}
+            disabled={!title}
+          >
+            <Text>Done</Text>
+          </Button>
         </Form>
-        <Button style={styles.button} block onPress={onSave}>
-          <Text>Done</Text>
-        </Button>
       </Content>
     </Container>
   );

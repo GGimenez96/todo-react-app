@@ -4,7 +4,7 @@ import { Icon, ListItem, Left, Body, Right } from 'native-base';
 import { useDispatch } from 'react-redux';
 import { markedAsDone, todoRemoved } from '../store/reducers/todosSlice';
 
-export default function TodoItem({ item }) {
+export default function TodoItem({ navigation, item }) {
   const dispatch = useDispatch();
   const markAsDone = () => {
     dispatch(markedAsDone({ todoId: item.id }));
@@ -23,7 +23,11 @@ export default function TodoItem({ item }) {
         </TouchableOpacity>
       </Left>
       <Body>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPressOut={() => {
+            navigation.navigate('Create', { item });
+          }}
+        >
           <Text style={item.done ? styles.done : null}>{item.title}</Text>
         </TouchableOpacity>
       </Body>
