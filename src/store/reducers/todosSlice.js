@@ -40,10 +40,20 @@ const todosSlice = createSlice({
         };
       },
     },
+    markedAsDone(state, action) {
+      const { todoId } = action.payload;
+      const todo = state.find((todo) => todo.id === todoId);
+      if (todo) {
+        todo.done = !todo.done;
+      }
+    },
+    todoRemoved(state, action) {
+      const { todoId } = action.payload;
+      return state.filter((todo) => todo.id !== todoId);
+    },
   },
 });
 
 export default todosSlice.reducer;
 
-export const { todoAdded } = todosSlice.actions
-
+export const { todoAdded, markedAsDone, todoRemoved } = todosSlice.actions;
