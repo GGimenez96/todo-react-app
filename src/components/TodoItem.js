@@ -7,7 +7,7 @@ export default function TodoItem({ item }) {
     <ListItem icon>
       <Left>
         <TouchableOpacity>
-          <Icon style={styles.checkIcon} name='ellipse-outline' />
+          <Icon style={styles.checkIcon} name={item.done ? 'checkmark-circle-outline' : 'ellipse-outline'} />
         </TouchableOpacity>
       </Left>
       <Body>
