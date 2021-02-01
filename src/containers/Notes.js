@@ -5,7 +5,7 @@ import MainHeader from '../components/MainHeader';
 
 export default function Notes() {
   return (
-    <Container>
+    <Container style={styles.container}>
       <Content padder contentContainerStyle={styles.content}>
         <MainHeader title='Notes' />
       </Content>
@@ -14,6 +14,9 @@ export default function Notes() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#f2f2f2',
+  },
   content: {
     marginTop: StatusBar.currentHeight || 20,
   },

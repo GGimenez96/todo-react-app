@@ -17,13 +17,14 @@ export default function Todos({ navigation, route }) {
       data={todos}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
+      style={styles.list}
     />
   ) : (
     <NoItems />
   );
 
   return (
-    <Container>
+    <Container style={styles.container}>
       <Content padder contentContainerStyle={styles.content}>
         <MainHeader title='Todos' navigation={navigation} />
         {content}
@@ -33,8 +34,16 @@ export default function Todos({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#f2f2f2',
+  },
   content: {
     marginTop: StatusBar.currentHeight || 20,
     flex: 1,
+  },
+  list: {
+    backgroundColor: 'white',
+    flexGrow: 0,
+    borderRadius: 20,
   },
 });
