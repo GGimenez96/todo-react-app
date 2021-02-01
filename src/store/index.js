@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import todosReducer from './reducers/todosSlice';
+import notesReducer from './reducers/notesSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   persistStore,
@@ -18,7 +19,10 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-const rootReducer = combineReducers({ todos: todosReducer });
+const rootReducer = combineReducers({
+  todos: todosReducer,
+  notes: notesReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

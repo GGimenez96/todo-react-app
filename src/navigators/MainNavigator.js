@@ -1,9 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Todos from '../containers/todos/Todos';
-import Notes from '../containers/Notes';
 import { Ionicons } from '@expo/vector-icons';
-import TodosNavigator from "./TodosNavigator";
+import TodosNavigator from './TodosNavigator';
+import NotesNavigator from './NotesNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +22,7 @@ export default function MainNavigator() {
       })}
     >
       <Tab.Screen name='Todos' component={TodosNavigator} />
-      <Tab.Screen name='Notes' component={Notes} />
+      <Tab.Screen name='Notes' component={NotesNavigator} />
     </Tab.Navigator>
   );
 }

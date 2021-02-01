@@ -1,32 +1,32 @@
 import React from 'react';
 import { StyleSheet, FlatList, StatusBar } from 'react-native';
 import { Container, Content } from 'native-base';
-import TodoItem from '../../components/TodoItem';
+import Note from '../../components/Note';
 import MainHeader from '../../components/MainHeader';
 import { useSelector } from 'react-redux';
 import NoItems from '../../components/NoItems';
 
-export default function Todos({ navigation, route }) {
-  const todos = useSelector((state) => state.todos);
+export default function Notes({ navigation, route }) {
+  const notes = useSelector((state) => state.notes);
   const renderItem = ({ item }) => (
-    <TodoItem navigation={navigation} route={route} item={item} />
+    <Note navigation={navigation} route={route} note={item} />
   );
 
-  const content = todos?.length ? (
+  const content = notes?.length ? (
     <FlatList
-      data={todos}
+      data={notes}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       style={styles.list}
     />
   ) : (
-    <NoItems screen='todos' />
+    <NoItems screen='notes' />
   );
 
   return (
     <Container style={styles.container}>
       <Content padder contentContainerStyle={styles.content}>
-        <MainHeader title='Todos' navigation={navigation} />
+        <MainHeader title='Notes' navigation={navigation} />
         {content}
       </Content>
     </Container>
